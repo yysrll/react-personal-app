@@ -1,11 +1,23 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import HomePage from './presentation/pages/HomePage';
 import NavBar from './presentation/components/NavBar';
-import { getAllNotes, getArchivedNotes } from './utils/local-data'
+import { addNote, getAllNotes, getArchivedNotes } from './utils/local-data'
 import ArchivePage from './presentation/pages/ArchivePage';
 import AddNotePage from './presentation/pages/AddNotePage';
 import DetailNote from './presentation/pages/DetailNote';
+
+function AppWrapper() {
+  const navigate = useNavigate()
+
+  function onAddNoteHandler(title, body) {
+    addNote(title, body)
+    navigate("/")
+  }
+  return (
+    <App addNote={onAddNoteHandler} />
+  )
+}
 
 class App extends React.Component {
   constructor(props) {
@@ -15,6 +27,18 @@ class App extends React.Component {
       notes: getAllNotes(),
       archivedNotes: getArchivedNotes(),
     }
+
+    this.onAddNoteHandler = this.onAddNoteHandler.bind(this)
+  }
+
+  onAddNoteHandler(title, body) {
+    this.props.addNote(title, body)
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        notes: getAllNotes(),
+      }
+    })
   }
 
 
@@ -25,7 +49,7 @@ class App extends React.Component {
           <Routes>
             <Route path="/" element={<HomePage notes={this.state.notes} />} />
             <Route path="/archived" element={<ArchivePage notes={this.state.archivedNotes} />} />
-            <Route path="/add" element={<AddNotePage />} />
+            <Route path="/add" element={<AddNotePage addNote={this.onAddNoteHandler} />} />
             <Route path="/note/:id" element={<DetailNote />} />
           </Routes>
         </NavBar>
@@ -34,4 +58,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default AppWrapper

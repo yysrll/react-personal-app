@@ -66,6 +66,7 @@ let notes = [
     notes = [...notes, {
       id: `notes-${+new Date()}`, title: title || '(untitled)', body, createdAt: new Date().toISOString(), archived: false,
     }];
+    console.log(notes.length)
   }
   
   function deleteNote(id) {

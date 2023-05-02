@@ -1,6 +1,6 @@
 import React from "react";
 
-function TextField({label, type, placeholder}) {
+function TextField({label, type, placeholder, value, onChange}) {
     return (
         <>
             <label className="block font-normal mt-4 mb-2 text-gray-500">
@@ -10,6 +10,8 @@ function TextField({label, type, placeholder}) {
                 className="border border-gray-400 rounded py-2 px-3 w-full text-gray-700"
                 type={type}
                 placeholder={placeholder}
+                value={value}
+                onChange={(event) => onChange(event)}
             />
         </>
     )

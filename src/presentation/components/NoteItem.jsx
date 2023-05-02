@@ -3,8 +3,6 @@ import { showFormattedDate } from "../../utils/date-formatter";
 import { Link } from "react-router-dom";
 
 function NoteItem({note}) {
-    console.log("NoteItem component is rendering...")
-
     return (
         <Link to={`/note/${note.id}`}>
             <div className="grid content-between p-4 bg-white text-gray-700 drop-shadow-sm rounded-md border border-gray-400">
