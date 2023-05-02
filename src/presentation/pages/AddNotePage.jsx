@@ -2,6 +2,7 @@ import React from 'react';
 import TextField from '../components/TextField';
 import TextAreaField from '../components/TextAreaField';
 import PrimaryButton from '../components/PrimaryButton';
+import PropTypes from "prop-types";
 
 
 class AddNotePage extends React.Component {
@@ -72,5 +73,9 @@ class AddNotePage extends React.Component {
         )
     }
 }
+
+AddNotePage.propTypes = {
+    addNote: PropTypes.func.isRequired
+}   
 
 export default AddNotePage

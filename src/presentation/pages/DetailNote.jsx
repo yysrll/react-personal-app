@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { showFormattedDate } from "../../utils/date-formatter";
 import PrimaryButton from "../components/PrimaryButton";
 import { FiArchive, FiTrash } from "react-icons/fi";
+import PropTypes from "prop-types";
 
 function DetailNoteWrapper({onDelete, onArchive, onUnarchive}) {
     const { id } = useParams()
@@ -108,6 +109,19 @@ class DetailNote extends React.Component {
             </>
         )
     }
+}
+
+DetailNoteWrapper.propTypes = {
+    onDelete: PropTypes.func.isRequired,
+    onArchive: PropTypes.func.isRequired,
+    onUnarchive: PropTypes.func.isRequired
+}
+
+DetailNote.propTypes = {
+    id: PropTypes.string.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onArchive: PropTypes.func.isRequired,
+    onUnarchive: PropTypes.func.isRequired
 }
 
 export default DetailNoteWrapper

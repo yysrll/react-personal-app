@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FiX, FiFolder, FiHome, FiArchive, FiMenu, FiPlusCircle } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 function NavBar({children}) {
     const [isOpen, setIsOpen] = useState(false);
@@ -79,6 +80,10 @@ function NavBar({children}) {
             </div>
         </>
     );
+}
+
+NavBar.propTypes = {
+    children: PropTypes.node
 }
 
 export default NavBar

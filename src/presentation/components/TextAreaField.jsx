@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function TextAreaField({label, placeholder, value, onChange}) {
     return (
@@ -16,6 +17,13 @@ function TextAreaField({label, placeholder, value, onChange}) {
         </textarea>
         </>
     )
+}
+
+TextAreaField.propTypes = {
+    label: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
+    value: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired
 }
 
 export default TextAreaField

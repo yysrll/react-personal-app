@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function TextField({label, type, placeholder, value, onChange}) {
     return (
@@ -15,6 +16,14 @@ function TextField({label, type, placeholder, value, onChange}) {
             />
         </>
     )
+}
+
+TextField.propTypes = {
+    label: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
+    value: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired
 }
 
 export default TextField

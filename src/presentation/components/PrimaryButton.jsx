@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function PrimaryButton({children, className, type, onClick}) {
     return (
@@ -12,6 +13,13 @@ function PrimaryButton({children, className, type, onClick}) {
             </button>
         </>
     )
+}
+
+PrimaryButton.propTypes = {
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+    type: PropTypes.string,
+    onClick: PropTypes.func.isRequired
 }
 
 export default PrimaryButton

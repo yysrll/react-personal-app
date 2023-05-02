@@ -2,6 +2,7 @@ import React from "react";
 import { showFormattedDate } from "../../utils/date-formatter";
 import { Link } from "react-router-dom";
 import { FiArchive, FiTrash } from "react-icons/fi";
+import PropTypes from "prop-types";
 
 function NoteItem({note, onArchive, onUnarchive, onDelete}) {
 
@@ -47,6 +48,13 @@ function NoteItem({note, onArchive, onUnarchive, onDelete}) {
             </div>
         </div>
     )
+}
+
+NoteItem.propType = {
+    note: PropTypes.object.isRequired, 
+    onArchive: PropTypes.func.isRequired, 
+    onUnarchive: PropTypes.func.isRequired, 
+    onDelete: PropTypes.func.isRequired
 }
 
 export default NoteItem

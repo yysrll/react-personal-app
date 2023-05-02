@@ -6,6 +6,7 @@ import { addNote, archiveNote, deleteNote, getAllNotes, getArchivedNotes, unarch
 import ArchivePage from './presentation/pages/ArchivePage';
 import AddNotePage from './presentation/pages/AddNotePage';
 import DetailNote from './presentation/pages/DetailNote';
+import PropTypes from "prop-types";
 
 function AppWrapper() {
   const navigate = useNavigate()
@@ -120,6 +121,13 @@ class App extends React.Component {
       </div>
     )
   }
+}
+
+App.propTypes = {
+  addNote: PropTypes.func.isRequired,
+  deleteNote: PropTypes.func.isRequired,
+  archiveNote: PropTypes.func.isRequired,
+  unarchiveNote: PropTypes.func.isRequired,
 }
 
 export default AppWrapper

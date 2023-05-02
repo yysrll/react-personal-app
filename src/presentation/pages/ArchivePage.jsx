@@ -1,5 +1,6 @@
 import React from 'react';
 import NoteList from '../components/NoteList';
+import PropTypes from "prop-types";
 
 function ArchivePage({notes}) {
     return (
@@ -10,6 +11,10 @@ function ArchivePage({notes}) {
             <NoteList notes={notes} />
         </div>
     )
+}
+
+ArchivePage.propTypes = {
+    notes: PropTypes.array.isRequired
 }
 
 export default ArchivePage
