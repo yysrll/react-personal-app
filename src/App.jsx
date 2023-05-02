@@ -2,7 +2,8 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './presentation/pages/HomePage';
 import NavBar from './presentation/components/NavBar';
-import { getAllNotes } from './utils/local-data'
+import { getAllNotes, getArchivedNotes } from './utils/local-data'
+import ArchivePage from './presentation/pages/ArchivePage';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class App extends React.Component {
 
     this.state = {
       notes: getAllNotes(),
+      archivedNotes: getArchivedNotes(),
     }
   }
 
@@ -20,6 +22,7 @@ class App extends React.Component {
         <NavBar >
           <Routes>
             <Route path="/" element={<HomePage notes={this.state.notes} />} />
+            <Route path="/archived" element={<ArchivePage notes={this.state.archivedNotes} />} />
           </Routes>
         </NavBar>
       </div>
