@@ -1,12 +1,12 @@
 import React from "react";
 
-function PrimaryButton({label}) {
+function PrimaryButton({children, className}) {
     return (
         <>
             <button
-                className="w-full py-2 bg-gray-700 hover:bg-gray-800 text-white rounded-md"
+                className={`py-2 bg-gray-700 hover:bg-gray-800 text-white rounded-md ${className}`}
             >
-                {label}
+                {children}
             </button>
         </>
     )

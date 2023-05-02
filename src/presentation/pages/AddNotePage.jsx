@@ -12,7 +12,9 @@ function AddNotePage() {
             <TextField label="Title" type="text" placeholder="Enter your note title" />
             <TextAreaField label="Description" placeholder="Enter your note description" />
             <div className="mt-10"></div>
-            <PrimaryButton label="Create Note" />
+            <PrimaryButton className="w-full">
+                Create Note
+            </PrimaryButton>
         </div>
     )
 }

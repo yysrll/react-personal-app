@@ -5,6 +5,7 @@ import NavBar from './presentation/components/NavBar';
 import { getAllNotes, getArchivedNotes } from './utils/local-data'
 import ArchivePage from './presentation/pages/ArchivePage';
 import AddNotePage from './presentation/pages/AddNotePage';
+import DetailNote from './presentation/pages/DetailNote';
 
 class App extends React.Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class App extends React.Component {
             <Route path="/" element={<HomePage notes={this.state.notes} />} />
             <Route path="/archived" element={<ArchivePage notes={this.state.archivedNotes} />} />
             <Route path="/add" element={<AddNotePage />} />
+            <Route path="/note/:id" element={<DetailNote />} />
           </Routes>
         </NavBar>
       </div>
