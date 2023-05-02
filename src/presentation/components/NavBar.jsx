@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FiX, FiFolder, FiHome, FiArchive, FiMenu } from "react-icons/fi";
+import { FiX, FiFolder, FiHome, FiArchive, FiMenu, FiPlusCircle } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
 
 function NavBar({children}) {
@@ -44,6 +44,15 @@ function NavBar({children}) {
                     >
                         <FiArchive/>
                         <span className="text-[16px] ml-4">Archived</span>
+                    </NavLink>
+                    <NavLink
+                        to="add"
+                        className={({ isActive }) => 
+                        `p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-400 text-gray-700  hover:text-white ${isActive ? "text-white bg-gray-700" : ""}`
+                        }
+                    >
+                        <FiPlusCircle/>
+                        <span className="text-[16px] ml-4">Add Note</span>
                     </NavLink>
 
                     <hr className="my-2 mt-8 text-gray-700" />
