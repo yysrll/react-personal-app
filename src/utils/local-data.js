@@ -70,6 +70,7 @@ let notes = [
   }
   
   function deleteNote(id) {
+    console.log("deleted")
     notes = notes.filter((note) => note.id !== id);
   }
   
