@@ -7,6 +7,7 @@ import ArchivePage from './presentation/pages/ArchivePage';
 import AddNotePage from './presentation/pages/AddNotePage';
 import DetailNote from './presentation/pages/DetailNote';
 import PropTypes from "prop-types";
+import NotFoundPage from './presentation/pages/NotFoundPage';
 
 function AppWrapper() {
   const navigate = useNavigate()
@@ -116,6 +117,7 @@ class App extends React.Component {
                 onUnarchive={this.onUnarchiveNoteHandler}
               />
             } />
+            <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </NavBar>
       </div>
