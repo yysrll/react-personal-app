@@ -31,7 +31,7 @@ function NoteList({notes, onArchive, onUnarchive, onDelete}) {
 }
 
 NoteList.propType = {
-    note: PropTypes.array.isRequired, 
+    notes: PropTypes.array.isRequired, 
     onArchive: PropTypes.func.isRequired, 
     onUnarchive: PropTypes.func.isRequired, 
     onDelete: PropTypes.func.isRequired

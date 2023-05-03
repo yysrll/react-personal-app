@@ -12,13 +12,15 @@ function NoteItem({note, onArchive, onUnarchive, onDelete}) {
                 <div className="flex justify-between items-start">
 
                     <Link to={`/note/${note.id}`}>
-                        <div className="mb-1 text-md font-semibold">
-                            {note.title}
+                        <div className="flex flex-wrap items-center mb-1 text-md font-semibold">
+                            <p className="me-2">
+                                {note.title}
+                            </p>
                             {
                                 (note.archived) &&
-                                <span className="bg-green-400 ms-2 p-1 rounded-md text-[8px] font-normal">
+                                <p className="h-fit bg-green-400 p-1 rounded-md text-[8px] font-normal">
                                     Archived
-                                </span>
+                                </p>
                             }
                         </div>
                     </Link>
