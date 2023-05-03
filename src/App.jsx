@@ -80,6 +80,7 @@ class App extends React.Component {
       return {
         ...prevState,
         notes: getAllNotes(),
+        archivedNotes: getArchivedNotes(),
       }
     })
   }
@@ -137,7 +138,14 @@ class App extends React.Component {
                 keywordChange={this.onSearchNoteHandler}
               />
             } />
-            <Route path="/archived" element={<ArchivePage notes={this.state.archivedNotes} />} />
+            <Route path="/archived" element={
+              <ArchivePage 
+                notes={this.state.archivedNotes} 
+                onDelete={this.onDeleteNoteHandler} 
+                onArchive={this.onArchiveNoteHandler}
+                onUnarchive={this.onUnarchiveNoteHandler}
+              />
+            } />
             <Route path="/add" element={<AddNotePage addNote={this.onAddNoteHandler} />} />
             <Route path="/note/:id" element={
               <DetailNote 
