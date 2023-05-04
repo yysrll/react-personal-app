@@ -27,15 +27,13 @@ function RegisterPage() {
             .then((res) => {
                 setIsError(res.error)
                 if (!res.error) {
-                    toast('Registered success')
                     navigate('/login')
-                } else {
-                    toast('Register failed, try again')
                 }
+                toast(res.message)
             })
-            .catch(() => {
+            .catch((e) => {
                 setIsError(true)
-                toast('Register failed, try again')
+                toast(e.message)
             })
             .finally(() => {
                 setLoading(false)
