@@ -8,6 +8,7 @@ import AddNotePage from './AddNotePage';
 import DetailNote from './DetailNote';
 import NotFoundPage from './NotFoundPage';
 import PropTypes from "prop-types";
+import RouteMiddleware from '../../middleware/RouteMiddleware';
 
 function DashboardWrapper() {
   const navigate = useNavigate()
@@ -129,32 +130,46 @@ class Dashboard extends React.Component {
         <NavBar >
           <Routes>
             <Route path="/" element={
-              <HomePage 
-                notes={notes} 
-                onDelete={this.onDeleteNoteHandler} 
-                onArchive={this.onArchiveNoteHandler}
-                onUnarchive={this.onUnarchiveNoteHandler}
-                defaultKeyword={this.props.defaultKeyword}
-                keywordChange={this.onSearchNoteHandler}
-              />
+              <RouteMiddleware middleware="auth">
+                <HomePage 
+                  notes={notes} 
+                  onDelete={this.onDeleteNoteHandler} 
+                  onArchive={this.onArchiveNoteHandler}
+                  onUnarchive={this.onUnarchiveNoteHandler}
+                  defaultKeyword={this.props.defaultKeyword}
+                  keywordChange={this.onSearchNoteHandler}
+                />
+              </RouteMiddleware>
             } />
             <Route path="/archived" element={
-              <ArchivePage 
-                notes={this.state.archivedNotes} 
-                onDelete={this.onDeleteNoteHandler} 
-                onArchive={this.onArchiveNoteHandler}
-                onUnarchive={this.onUnarchiveNoteHandler}
-              />
+              <RouteMiddleware middleware="auth">
+                <ArchivePage 
+                  notes={this.state.archivedNotes} 
+                  onDelete={this.onDeleteNoteHandler} 
+                  onArchive={this.onArchiveNoteHandler}
+                  onUnarchive={this.onUnarchiveNoteHandler}
+                />
+              </RouteMiddleware>
             } />
-            <Route path="/add" element={<AddNotePage addNote={this.onAddNoteHandler} />} />
+            <Route path="/add" element={
+              <RouteMiddleware middleware="auth">
+                <AddNotePage addNote={this.onAddNoteHandler} />
+              </RouteMiddleware>
+            } />
             <Route path="/note/:id" element={
-              <DetailNote 
-                onDelete={this.onDeleteNoteHandler}
-                onArchive={this.onArchiveNoteHandler}
-                onUnarchive={this.onUnarchiveNoteHandler}
-              />
+              <RouteMiddleware middleware="auth">
+                <DetailNote 
+                  onDelete={this.onDeleteNoteHandler}
+                  onArchive={this.onArchiveNoteHandler}
+                  onUnarchive={this.onUnarchiveNoteHandler}
+                />
+              </RouteMiddleware>
             } />
-            <Route path='*' element={<NotFoundPage />} />
+            <Route path='*' element={
+              <RouteMiddleware middleware="auth">
+                <NotFoundPage />
+              </RouteMiddleware>
+            } />
           </Routes>
         </NavBar>
       </div>

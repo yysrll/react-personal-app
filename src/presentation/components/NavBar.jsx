@@ -1,9 +1,12 @@
-import React, { useState } from "react";
-import { FiX, FiFolder, FiHome, FiArchive, FiMenu, FiPlusCircle } from "react-icons/fi";
+import React, { useContext, useState } from "react";
+import { FiX, FiFolder, FiHome, FiArchive, FiMenu, FiPlusCircle, FiUser } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
 import PropTypes from 'prop-types';
+import UserContext from "../../contexts/UserContext";
+import PrimaryButton from "./PrimaryButton";
 
 function NavBar({children}) {
+    const {user, setUser} = useContext(UserContext)
     const [isOpen, setIsOpen] = useState(false);
 
     function openSidebar() {
@@ -69,6 +72,16 @@ function NavBar({children}) {
                                         onClick={openSidebar}
                                     />
                                     <h1 className="font-bold text-gray-700 text-[16px] ml-3 lg:ml-8 lg:invisible">Personal Note</h1>
+                                </div>
+                                <div className="text-[16px] flex items-center text-gray-700 me-6">
+                                    <FiUser className="me-3"/>
+                                    {user.name}
+                                    <div 
+                                        className="ms-10"
+                                        onClick={() => setUser(null)}
+                                    >
+                                        Logout
+                                    </div>
                                 </div>
                             </div>
                         </div>
