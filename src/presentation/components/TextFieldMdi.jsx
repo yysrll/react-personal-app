@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types"; 
 
-function TextField({ className, label, type = "text", value, onChange }) {
+function TextField({ className, label, type = "text", value, onChange, isRequired = false }) {
   const [isFocused, setIsFocused] = React.useState(value !== "");
 
   return (
@@ -25,6 +25,7 @@ function TextField({ className, label, type = "text", value, onChange }) {
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         autoComplete="off"
+        required={isRequired ? "required" : ""}
       />
     </div>
   );
@@ -35,7 +36,8 @@ TextField.propTypes = {
     label: PropTypes.string.isRequired,
     type: PropTypes.string,
     value: PropTypes.string,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    isRequired: PropTypes.bool
 }
 
 export default TextField;

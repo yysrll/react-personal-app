@@ -1,15 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from '../components/TextFieldMdi';
 import PrimaryButton from "../components/PrimaryButton";
 import TextFieldPassword from "../components/TextFieldPassword";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthenticationLayout from "../layouts/AuthenticationLayout";
+import toast, { Toaster } from 'react-hot-toast';
+import { register } from "../../utils/network-data";
+import LoadingIndicator from "../components/LoadingIndicator";
 
 function RegisterPage() {
-    const [name, setName] = React.useState("")
-    const [email, setEmail] = React.useState("")
-    const [password, setPassword] = React.useState("")
-    const [confirmPassword, setConfirmPassword] = React.useState("")
+    const navigate = useNavigate()
+
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
+    const [loading, setLoading] = useState(false)
+    const [isError, setIsError] = useState(false)
+
+    const onRegister = (e) =>{
+        e.preventDefault()
+
+        setLoading(true)
+
+        register({ name, email, password })
+            .then((res) => {
+                setIsError(res.error)
+                if (!res.error) {
+                    toast('Registered success')
+                    navigate('/login')
+                } else {
+                    toast('Register failed, try again')
+                }
+            })
+            .catch(() => {
+                setIsError(true)
+                toast('Register failed, try again')
+            })
+            .finally(() => {
+                setLoading(false)
+            })
+    };
 
     return (
         <AuthenticationLayout>
@@ -19,29 +50,49 @@ function RegisterPage() {
             <div className="text-sm font-light text-secondary-gray">
                 Create an account for use more features from note dicoding
             </div>
-            <TextField
-                label="Name"
-                value={name}
-                onChange={setName}
-            />
-            <TextField
-                label="Email"
-                value={email}
-                onChange={setEmail}
-            />
-            <TextFieldPassword
-                label="Password"
-                value={password}
-                onChange={setPassword}
-            />
-            <TextFieldPassword
-                label="Confirm Password"
-                value={confirmPassword}
-                onChange={setConfirmPassword}
-            />
-            <PrimaryButton className="w-full mt-8">
-                Create an Account
-            </PrimaryButton>
+            <form onSubmit={!loading && onRegister}>
+                <TextField
+                    label="Name"
+                    value={name}
+                    onChange={setName}
+                    isRequired={true}
+                />
+                <TextField
+                    label="Email"
+                    type="email"
+                    value={email}
+                    onChange={setEmail}
+                    isRequired={true}
+                />
+                <TextFieldPassword
+                    label="Password"
+                    value={password}
+                    onChange={setPassword}
+                    isRequired={true}
+                />
+                <TextFieldPassword
+                    label="Confirm Password"
+                    value={confirmPassword}
+                    onChange={setConfirmPassword}
+                    isRequired={true}
+                />
+                {
+                    
+                    (password !== confirmPassword) &&
+                    (confirmPassword !== "")
+                     && (
+                        <p className="text-xs text-red-500">Your confirmation password do not match</p>
+                    )
+                }
+                <PrimaryButton 
+                    type="submit"
+                    className="w-full mt-8" >
+                        <div className="flex justify-center items-center">
+                            { loading && <LoadingIndicator /> }
+                            Create an Account
+                        </div>
+                </PrimaryButton>
+            </form>
             <div className="flex justify-center mt-6">
                 Already have an account?
                 <Link to="/login">
@@ -50,6 +101,14 @@ function RegisterPage() {
                     </p>
                 </Link>
             </div>
+            <Toaster 
+                toastOptions={{
+                    style: {
+                        background: isError ? '#ef4444' : '#22c55e',
+                        color: '#fff',
+                    },
+                }}
+            />
         </AuthenticationLayout>
     )
 }

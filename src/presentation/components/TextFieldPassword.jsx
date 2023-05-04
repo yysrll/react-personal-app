@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types"; 
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
-function TextFieldPassword({ className, label, value, onChange }) {
+function TextFieldPassword({ className, label, value, onChange, isRequired = false }) {
   const [isFocused, setIsFocused] = React.useState(value !== "")
   const [isShowPassword, setisShowPassword] = React.useState(false)
 
@@ -34,6 +34,7 @@ function TextFieldPassword({ className, label, value, onChange }) {
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         autoComplete="off"
+        required={isRequired ? "required" : ""}
       />
     </div>
   );
@@ -44,7 +45,8 @@ TextFieldPassword.propTypes = {
     label: PropTypes.string.isRequired,
     type: PropTypes.string,
     value: PropTypes.string,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    isRequired: PropTypes.bool
 }
 
 export default TextFieldPassword;

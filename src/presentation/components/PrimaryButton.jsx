@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function PrimaryButton({children, className, type, onClick}) {
+function PrimaryButton({children, className, type = "button", onClick}) {
     return (
         <>
             <button
