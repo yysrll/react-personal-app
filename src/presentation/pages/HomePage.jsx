@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import NoteList from '../components/NoteList';
 import PropTypes from "prop-types";
 import TextField from '../components/TextField';
+import UserContext from '../../contexts/UserContext';
 
 function HomePage({notes, onArchive, onUnarchive, onDelete, defaultKeyword, keywordChange}) {
+
+    const { user } = useContext(UserContext)
     return (
         <div className=''>
+            <p className='my-4 text-lg font-semibold text-gray-600'>
+                Welcome back, {user.name}
+            </p>
             <TextField 
                 label='Search'
                 placeholder='Search notes...'

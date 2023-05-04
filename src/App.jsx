@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { getUserLogged } from "./utils/network-data";
+import { getUserLogged, putAccessToken } from "./utils/network-data";
 import UserContext from "./contexts/UserContext";
 import { Link, Route, Routes } from "react-router-dom";
 import LoginPage from "./presentation/pages/LoginPage";
@@ -37,7 +37,7 @@ function App() {
                 user ? (
                   <div>
                     <h1>Welcome, {user.name}</h1>
-                    <button onClick={() => setUser(null)}>Logout</button>
+                    <button onClick={() => putAccessToken("")}>Logout</button>
                   </div>
                 ) : (
                   <div>
