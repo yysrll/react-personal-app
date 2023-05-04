@@ -1,29 +1,38 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function TextAreaField({label, placeholder, value, onChange}) {
+function TextAreaField({className, label, value, onChange}) {
+    const [isFocused, setIsFocused] = React.useState(value !== "");
+
     return (
-        <>
-        <label className="block font-normal mt-4 mb-2 text-gray-500">
-            {label}
-        </label>
-        <textarea
-            className="border border-gray-400 rounded py-2 px-3 w-full text-gray-700"
-            rows="4"
-            placeholder={placeholder}
-            value={value}
-            onChange={(event) => onChange(event)}
-        >
-        </textarea>
-        </>
+        <div className="relative flex items-start justify-center w-full text-[#707EAE] mt-6">
+            <label
+                className={`absolute left-0 ${
+                isFocused || value ? "text-xs text-gray-400 -top-2" : "text-base ms-3 top-2"
+                } transform origin-top-left transition-all ${
+                isFocused || value ? "-translate-y-2.5" : ""
+                }`}
+                htmlFor={label}
+            >
+                {label}
+            </label>
+            <div
+                className={`border border-transparent rounded py-2 px-3 h-24 w-full text-gray-700 ${className}`}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+                onInput={(event) => onChange(event.target.innerHTML)}
+                contentEditable
+            >
+            </div>
+        </ div>
     )
 }
 
 TextAreaField.propTypes = {
+    className: PropTypes.string,
     label: PropTypes.string.isRequired,
-    placeholder: PropTypes.string,
     value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
 }
 
 export default TextAreaField

@@ -3,7 +3,6 @@ import { FiX, FiFolder, FiHome, FiArchive, FiMenu, FiPlusCircle, FiUser } from "
 import { NavLink } from "react-router-dom";
 import PropTypes from 'prop-types';
 import UserContext from "../../contexts/UserContext";
-import PrimaryButton from "./PrimaryButton";
 
 function NavBar({children}) {
     const {user, setUser} = useContext(UserContext)

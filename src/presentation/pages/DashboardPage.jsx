@@ -120,25 +120,13 @@ class Dashboard extends React.Component {
 
 
   render() {
-    const notes = this.state.notes.filter((note) => {
-      return note.title.toLowerCase().includes(
-        this.state.keyword.toLowerCase()
-      );
-    });
     return (
       <div className="bg-gray-100 min-h-screen font-sans">
         <NavBar >
           <Routes>
             <Route path="/" element={
               <RouteMiddleware middleware="auth">
-                <HomePage 
-                  notes={notes} 
-                  onDelete={this.onDeleteNoteHandler} 
-                  onArchive={this.onArchiveNoteHandler}
-                  onUnarchive={this.onUnarchiveNoteHandler}
-                  defaultKeyword={this.props.defaultKeyword}
-                  keywordChange={this.onSearchNoteHandler}
-                />
+                <HomePage />
               </RouteMiddleware>
             } />
             <Route path="/archived" element={
@@ -153,7 +141,7 @@ class Dashboard extends React.Component {
             } />
             <Route path="/add" element={
               <RouteMiddleware middleware="auth">
-                <AddNotePage addNote={this.onAddNoteHandler} />
+                <AddNotePage />
               </RouteMiddleware>
             } />
             <Route path="/note/:id" element={

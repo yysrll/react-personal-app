@@ -1,81 +1,82 @@
-import React from 'react';
-import TextField from '../components/TextField';
+import React, { useState } from 'react';
+import TextField from '../components/TextFieldMdi';
 import TextAreaField from '../components/TextAreaField';
 import PrimaryButton from '../components/PrimaryButton';
-import PropTypes from "prop-types";
+import { addNote } from '../../utils/network-data';
+import { useNavigate } from 'react-router-dom';
+import { Toaster, toast } from 'react-hot-toast';
+import LoadingIndicator from '../components/LoadingIndicator';
 
+function AddNotePage() {
+    const navigate = useNavigate()
 
-class AddNotePage extends React.Component {
-    constructor(props) {
-        super(props)
+    const [title, setTitle] = useState("")
+    const [body, setBody] = useState("")
+    const [loading, setLoading] = useState(false)
 
-        this.state = {
-            title: '',
-            body: '',
-        }
+    const onSubmitNote = (e) => {
+        e.preventDefault()
 
-        this.onTitleChangeEventHandler = this.onTitleChangeEventHandler.bind(this)
-        this.onDescriptionChangeEventHandler = this.onDescriptionChangeEventHandler.bind(this)
-        this.onSubmitEventHandler = this.onSubmitEventHandler.bind(this)
+        setLoading(true)
+        addNote({title, body})
+            .then((res) => {
+                if (!res.error) {
+                    navigate('/')
+                    console.log(res.data)
+                } else {
+                    toast('Failed to create note')
+                }
+            })
+            .catch((error) => {
+                toast(`Failed: ${error}`)
+            })
+            .finally(() => {
+                setLoading(false)
+            })
     }
 
-    onTitleChangeEventHandler(event) {
-        this.setState((prevState) => {
-            return {
-              ...prevState,
-              title: event.target.value,
-            }
-          });
-    }
-
-    onDescriptionChangeEventHandler(event) {
-        this.setState((prevState) => {
-            return {
-              ...prevState,
-              body: event.target.value,
-            }
-          });
-    }
-
-    onSubmitEventHandler(event) {
-        event.preventDefault()
-        this.props.addNote(this.state)
-    }
-
-    render() {
-        return (
-            <div className=''>
-                <p className='mb-4 text-lg font-semibold text-gray-600'>
-                    Add Note
-                </p>
-                    <TextField 
-                        label="Title" 
-                        type="text" 
-                        placeholder="Enter your note title" 
-                        value={this.state.title}
-                        onChange={this.onTitleChangeEventHandler}
-                    />
-                    <TextAreaField 
-                        label="Description"
-                        placeholder="Enter your note description" 
-                        value={this.state.body}
-                        onChange={this.onDescriptionChangeEventHandler}
-                    />
-                    <div className="mt-10"></div>
-                    <PrimaryButton 
-                        className="w-full"
-                        type="submit"
-                        onClick={this.onSubmitEventHandler}
-                    >
+    return (
+        <div className=''>
+            <p className='mb-4 text-lg font-semibold text-gray-600'>
+                Add Note
+            </p>
+            <form onSubmit={onSubmitNote}>
+                <TextField
+                    className="bg-white"
+                    label="Title"
+                    value={title}
+                    onChange={setTitle}
+                    isRequired={true}
+                />
+                <TextAreaField 
+                    className="bg-white"
+                    label="Description"
+                    placeholder="Enter your note description" 
+                    value={body}
+                    onChange={setBody}
+                    isRequired={true}
+                />
+                <div className="mt-10"></div>
+                <PrimaryButton 
+                    className="w-full"
+                    type="submit"
+                >
+                    <div className="flex justify-center items-center">
+                        { loading && <LoadingIndicator /> }
                         Create Note
-                    </PrimaryButton>
-            </div>
-        )
-    }
+                    </div>
+                </PrimaryButton>
+            </form>
+            <Toaster 
+                toastOptions={{
+                    style: {
+                        background: '#ef4444',
+                        color: '#fff',
+                    },
+                }}
+            />
+        </div>
+    )
 }
-
-AddNotePage.propTypes = {
-    addNote: PropTypes.func.isRequired
-}   
 
 export default AddNotePage

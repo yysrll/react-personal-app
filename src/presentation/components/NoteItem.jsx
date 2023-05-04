@@ -3,6 +3,8 @@ import { showFormattedDate } from "../../utils/date-formatter";
 import { Link } from "react-router-dom";
 import { FiArchive, FiTrash } from "react-icons/fi";
 import PropTypes from "prop-types";
+import parser from 'html-react-parser';
+
 
 function NoteItem({note, onArchive, onUnarchive, onDelete}) {
 
@@ -42,7 +44,7 @@ function NoteItem({note, onArchive, onUnarchive, onDelete}) {
                     </div>
                 </div>
                 <div className="truncate text-sm text-gray-500">
-                    {note.body}
+                    {parser(note.body)}
                 </div>
             </div>
             <div className="mt-4 text-xs text-gray-400">
@@ -55,7 +57,7 @@ function NoteItem({note, onArchive, onUnarchive, onDelete}) {
 NoteItem.propType = {
     note: PropTypes.object.isRequired, 
     onArchive: PropTypes.func.isRequired, 
-    onUnarchive: PropTypes.func.isRequired, 
+    onUnarchive: PropTypes.func, 
     onDelete: PropTypes.func.isRequired
 }
 

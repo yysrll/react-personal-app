@@ -65,7 +65,6 @@ function LoginPage() {
             </div>
             <form onSubmit={!loading && onLogin}>
                 <TextField
-                    className=""
                     label="Email"
                     type="email"
                     value={email}
@@ -73,7 +72,6 @@ function LoginPage() {
                     isRequired={true}
                 />
                 <TextFieldPassword
-                    className=""
                     label="Password"
                     value={password}
                     onChange={setPassword}
