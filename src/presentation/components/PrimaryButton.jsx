@@ -5,7 +5,7 @@ function PrimaryButton({children, className, type, onClick}) {
     return (
         <>
             <button
-                className={`py-2 bg-gray-700 hover:bg-gray-800 text-white rounded-md ${className}`}
+                className={`py-2 px-8 bg-primary h-[56px] hover:bg-blue-900 text-white rounded-full ${className}`}
                 type={type}
                 onClick={onClick}
             >
@@ -19,7 +19,7 @@ PrimaryButton.propTypes = {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     type: PropTypes.string,
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func
 }
 
 export default PrimaryButton
