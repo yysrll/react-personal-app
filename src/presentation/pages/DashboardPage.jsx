@@ -146,11 +146,7 @@ class Dashboard extends React.Component {
             } />
             <Route path="/note/:id" element={
               <RouteMiddleware middleware="auth">
-                <DetailNote 
-                  onDelete={this.onDeleteNoteHandler}
-                  onArchive={this.onArchiveNoteHandler}
-                  onUnarchive={this.onUnarchiveNoteHandler}
-                />
+                <DetailNote />
               </RouteMiddleware>
             } />
             <Route path='*' element={

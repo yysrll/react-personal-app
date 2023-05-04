@@ -17,7 +17,7 @@ function HomePage() {
     const [notes, setNotes] = useState([])
     const [filteredNotes, setFilteredNotes] = useState([])
     const [isError, setIsError] = useState(false)
-    const [keyword, setKeyword] = useState(search)
+    const [keyword, setKeyword] = useState(searchParams.get('search') || '')
 
     useEffect(() => {
         setIsLoading(true)
@@ -53,8 +53,7 @@ function HomePage() {
             });
         }
         setFilteredNotes(temp)
-        console.log(temp)
-    }, [search, keyword, notes])
+    }, [keyword, search, notes])
 
     return (
         <div className=''>

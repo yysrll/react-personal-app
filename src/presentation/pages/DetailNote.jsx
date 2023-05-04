@@ -1,39 +1,133 @@
-import React from "react";
-import { getNote } from "../../utils/local-data";
+import React, { useEffect, useState } from "react";
+import { getNote } from "../../utils/network-data";
 import { useNavigate, useParams } from "react-router-dom";
 import { showFormattedDate } from "../../utils/date-formatter";
 import PrimaryButton from "../components/PrimaryButton";
 import { FiArchive, FiTrash } from "react-icons/fi";
 import PropTypes from "prop-types";
+import LoadingIndicator from "../components/LoadingIndicator";
+import { Toaster, toast } from "react-hot-toast";
+import parser from 'html-react-parser';
 
-function DetailNoteWrapper({onDelete, onArchive, onUnarchive}) {
+function DetailNote() {
     const { id } = useParams()
     const navigate = useNavigate()
 
-    function onDeleteItem(id) {
-        onDelete(id)
-        navigate("/")
-    }
+    const [note, setNote] = useState(null)
+    const [isArchive, setIsArchive] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    const [isError, setIsError] = useState(false)
 
-    function onArchiveItem(id) {
-        onArchive(id)
-    }
 
-    function onUnarchiveItem(id) {
-        onUnarchive(id)
-    }
+    useEffect(() => {
+        setIsLoading(true)
+        setIsError(false)
+        setNote(null)
+
+        getNote(id)
+            .then((res) => {
+                if (!res.error) {
+                    console.log(res.data)
+                    setNote(res.data)
+                    toast("Success fetch data")
+                } else {
+                    setIsError(true)
+                    setNote(null)
+                    toast("Failed to fetch note")
+                }
+            })
+            .catch((error) => {
+                toast(error)
+                setIsError(true)
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
+    }, [])
+
+    
+    
 
     return (
-        <DetailNote 
-            id={id} 
-            onDelete={onDeleteItem} 
-            onArchive={onArchiveItem} 
-            onUnarchive={onUnarchiveItem}
-        />
+        <>  
+            {
+                isLoading && (
+                    <div className='w-fit flex bg-primary text-white p-4 rounded-lg'> 
+                    <LoadingIndicator />
+                    Loading...
+                    </div>
+                )
+            }
+            {
+                isError && (
+                    <p>Failed to get data, please try again!</p>
+                ) 
+            }
+            {
+                !note && !isLoading && (
+                    <p>Note is not found!</p>
+                )
+            }
+            {
+                note !== null && (
+                    <>
+                    <div className="flex justify-end mb-4">
+                        {isArchive ? (
+                            <PrimaryButton className="border border-green-500 bg-green-300 hover:bg-green-500 me-4"
+                                onClick={() => { } }
+                            >
+                                <div className="flex items-center text-gray-700 px-4">
+                                    <FiArchive className="me-2" />
+                                    Unarchive
+                                </div>
+                            </PrimaryButton>
+                        ) : (
+                            <PrimaryButton className="border border-gray-500 bg-transparent hover:bg-gray-300 me-4"
+                                onClick={() => { } }
+                            >
+                                <div className="flex items-center text-gray-700 px-4">
+                                    <FiArchive className="me-2" />
+                                    Archive
+                                </div>
+                            </PrimaryButton>
+                        )}
+                        <PrimaryButton
+                            className="bg-red-500 hover:bg-red-700"
+                            onClick={() => { } }
+                        >
+                            <div className="flex items-center px-4">
+                                <FiTrash className="me-2" />
+                                Delete
+                            </div>
+                        </PrimaryButton>
+                    </div>
+                    <div className="grid content-between p-4 bg-white text-gray-700 drop-shadow-sm rounded-md border border-gray-400">
+                        <div className="mb-1 text-md font-semibold">
+                            {note.title}
+                        </div>
+                        <div className="text-sm text-gray-500">
+                            {parser(note.body)}
+                        </div>
+                        <div className="mt-4 text-xs text-gray-400">
+                            {showFormattedDate(note.createdAt)}
+                        </div>
+                    </div>
+                    </>
+                )
+            }
+            <Toaster 
+                toastOptions={{
+                    style: {
+                        background: isError ? '#ef4444' : '#22c55e',
+                        color: '#fff',
+                    },
+                }}
+            />
+        </>
     )
 }
 
-class DetailNote extends React.Component {
+class DetailNotee extends React.Component {
     constructor(props) {
         super(props)
 
@@ -111,17 +205,4 @@ class DetailNote extends React.Component {
     }
 }
 
-DetailNoteWrapper.propTypes = {
-    onDelete: PropTypes.func.isRequired,
-    onArchive: PropTypes.func.isRequired,
-    onUnarchive: PropTypes.func.isRequired
-}
-
-DetailNote.propTypes = {
-    id: PropTypes.string.isRequired,
-    onDelete: PropTypes.func.isRequired,
-    onArchive: PropTypes.func.isRequired,
-    onUnarchive: PropTypes.func.isRequired
-}
-
-export default DetailNoteWrapper
+export default DetailNote
