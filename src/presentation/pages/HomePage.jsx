@@ -3,7 +3,7 @@ import NoteList from '../components/NoteList';
 import TextField from '../components/TextFieldMdi';
 import UserContext from '../../contexts/UserContext';
 import LoadingIndicator from '../components/LoadingIndicator'
-import { getActiveNotes } from '../../utils/network-data';
+import { archiveNote, deleteNote, getActiveNotes, unarchiveNote } from '../../utils/network-data';
 import { Toaster, toast } from 'react-hot-toast';
 import { useSearchParams } from 'react-router-dom';
 
@@ -20,8 +20,12 @@ function HomePage() {
     const [keyword, setKeyword] = useState(searchParams.get('search') || '')
 
     useEffect(() => {
+        getNotes()
+    }, [])
+
+    const getNotes = () => {
+
         setIsLoading(true)
-        setIsError(false)
         getActiveNotes()
             .then((res) => {
                 if (!res.error) {
@@ -40,8 +44,9 @@ function HomePage() {
             })
             .finally(() => {
                 setIsLoading(false)
+                setIsError(false)
             })
-    }, [])
+    }
 
     useEffect(() => {
         let temp = [...notes]
@@ -54,6 +59,68 @@ function HomePage() {
         }
         setFilteredNotes(temp)
     }, [keyword, search, notes])
+
+
+    const onArchive = (id) => {
+        archiveNote(id)
+            .then((res) => {
+                if (!res.error) {
+                    toast("Success to archive note")
+                    getNotes()
+                } else {
+                    setIsError(true)
+                    toast("Failed to archive note")
+                }
+            })
+            .catch((error) => {
+                setIsError(true)
+                toast(error)
+            })
+            .finally(() => {
+                setIsError(false)
+            })
+    }
+
+    const onUnarchive = (id) => {
+        unarchiveNote(id)
+        .then((res) => {
+            if (!res.error) {
+                toast("Success to unarchive note")
+                getNotes()
+            } else {
+                setIsError(true)
+                toast("Failed to unarchive note")
+            }
+        })
+        .catch((error) => {
+            setIsError(true)
+            toast(error)
+        })
+        .finally(() => {
+            setIsError(false)
+        })
+    }
+
+    const onDelete = (id) => {
+        deleteNote(id)
+        .then((res) => {
+            if (!res.error) {
+                toast("Success to delete note")
+                getNotes()
+            } else {
+                setIsError(true)
+                toast("Failed to delete note")
+            }
+        })
+        .catch((error) => {
+            setIsError(true)
+            toast(error)
+        })
+        .finally(() => {
+            setIsError(false)
+        })
+    }
+
 
     return (
         <div className=''>
@@ -81,9 +148,9 @@ function HomePage() {
                 :
                 <NoteList 
                     notes={filteredNotes} 
-                    onArchive={()=>{}}
-                    onUnarchive={()=>{}}
-                    onDelete={()=>{}}
+                    onArchive={onArchive}
+                    onUnarchive={onUnarchive}
+                    onDelete={onDelete}
                 />
             }
             <Toaster 

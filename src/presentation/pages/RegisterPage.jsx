@@ -37,6 +37,7 @@ function RegisterPage() {
             })
             .finally(() => {
                 setLoading(false)
+                setIsError(false)
             })
     };
 

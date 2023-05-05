@@ -43,7 +43,6 @@ function TextFieldPassword({ className, label, value, onChange, isRequired = fal
 TextFieldPassword.propTypes = {
     className: PropTypes.string,
     label: PropTypes.string.isRequired,
-    type: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     isRequired: PropTypes.bool

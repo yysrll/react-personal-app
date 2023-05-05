@@ -52,6 +52,7 @@ function LoginPage() {
             })
             .finally(() => {
                 setLoading(false)
+                setIsError(false)
             })
     };
 
