@@ -43,10 +43,10 @@ function RegisterPage() {
 
     return (
         <AuthenticationLayout>
-            <div className="text-3xl font-medium">
+            <div className="text-3xl font-medium dark:text-white">
                 Register Now
             </div>
-            <div className="text-sm font-light text-secondary-gray">
+            <div className="text-sm font-light text-secondary-gray dark:text-gray-300">
                 Create an account for use more features from note dicoding
             </div>
             <form onSubmit={!loading && onRegister}>
@@ -92,10 +92,10 @@ function RegisterPage() {
                         </div>
                 </PrimaryButton>
             </form>
-            <div className="flex justify-center mt-6">
+            <div className="flex justify-center mt-6 dark:text-gray-400">
                 Already have an account?
                 <Link to="/login">
-                    <p className="ms-2 text-primary">
+                    <p className="ms-2 text-primary dark:text-white">
                         Login here
                     </p>
                 </Link>

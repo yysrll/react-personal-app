@@ -4,17 +4,17 @@ import PropTypes from 'prop-types';
 
 function AuthenticationLayout({children}) {
     return (
-        <div className="relative overflow-x-hidden">
+        <div className="relative overflow-x-hidden dark:bg-gray-900">
             <div className="absolute top-[36px] left-[28px] flex items-center">
                 <img 
                     className="me-[16px]"
                     src={require('../assets/logo.png')} alt="Logo" />
-                <div className="text-gray-700">
+                <div className="text-gray-700 dark:text-white">
                     Personal  Note
                 </div>
             </div>
             <div className="flex flex-col h-screen md:flex-row-reverse">
-                <div className="pt-[76px] bg-background pb-[12px] md:w-[40%] md:pt-0 md:pb-0 md:relative">
+                <div className="pt-[76px] bg-background dark:bg-gray-700 pb-[12px] md:w-[40%] md:pt-0 md:pb-0 md:relative">
                     <Hero 
                         className="mx-auto mt-[12px] h-[210px] w-[320px] md:h-[65%] md:w-[120%] md:mt-0 md:absolute md:-left-[15%] md:bottom-4" />
                     <img 

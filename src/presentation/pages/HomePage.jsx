@@ -124,7 +124,7 @@ function HomePage() {
 
     return (
         <div className=''>
-            <p className='my-4 text-lg font-semibold text-gray-600'>
+            <p className='my-4 text-lg font-semibold text-gray-600 dark:text-white'>
                 Welcome back, {user.name}
             </p>
             <TextField
@@ -136,7 +136,7 @@ function HomePage() {
                     setSearchParams({search})
                 }}
             />
-            <p className='my-4 text-lg font-semibold text-gray-600'>
+            <p className='my-4 text-lg font-semibold text-gray-600 dark:text-white'>
                 Your Notes
             </p>
             {

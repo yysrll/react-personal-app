@@ -61,10 +61,10 @@ function LoginPage() {
 
     return (
         <AuthenticationLayout>
-            <div className="text-3xl font-medium">
+            <div className="text-3xl font-medium dark:text-white">
                 Welcome Back
             </div>
-            <div className="text-sm font-light text-secondary-gray">
+            <div className="text-sm font-light text-secondary-gray dark:text-gray-300">
                 Login to create your notes
             </div>
             <form onSubmit={onLogin}>
@@ -88,10 +88,10 @@ function LoginPage() {
                     </div>
                 </PrimaryButton>
             </form>
-            <div className="flex justify-center mt-6">
+            <div className="flex justify-center mt-6 dark:text-gray-400">
                 Belum punya akun?
                 <Link to="/register">
-                    <p className="ms-2 text-primary">
+                    <p className="ms-2 text-primary dark:text-white">
                         Register
                     </p>
                 </Link>

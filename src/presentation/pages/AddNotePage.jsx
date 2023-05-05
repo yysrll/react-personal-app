@@ -41,7 +41,7 @@ function AddNotePage() {
 
     return (
         <div className=''>
-            <p className='mb-4 text-lg font-semibold text-gray-600'>
+            <p className='mb-4 text-lg font-semibold text-gray-600 dark:text-white'>
                 Add Note
             </p>
             <form onSubmit={onSubmitNote}>

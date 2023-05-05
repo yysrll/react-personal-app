@@ -122,10 +122,10 @@ function DetailNote() {
                                 </div>
                             </PrimaryButton>
                         ) : (
-                            <PrimaryButton className="border border-gray-500 bg-transparent hover:bg-gray-300 me-4"
+                            <PrimaryButton className="border border-gray-500 dark:border-white bg-transparent hover:bg-gray-300 me-4"
                                 onClick={onArchive}
                             >
-                                <div className="flex items-center text-gray-500 px-4">
+                                <div className="flex items-center text-gray-500 dark:text-white px-4">
                                     <FiArchive className="me-2" />
                                     Archive
                                 </div>
@@ -141,14 +141,14 @@ function DetailNote() {
                             </div>
                         </PrimaryButton>
                     </div>
-                    <div className="grid content-between p-4 bg-white text-gray-700 drop-shadow-sm rounded-md border border-gray-400">
+                    <div className="grid content-between p-4 bg-white dark:bg-gray-600 text-gray-700 dark:text-white drop-shadow-sm rounded-md border border-gray-400">
                         <div className="mb-1 text-md font-semibold">
                             {note.title}
                         </div>
-                        <div className="text-sm text-gray-500">
+                        <div className="text-sm text-gray-500 dark:text-gray-200">
                             {parser(note.body)}
                         </div>
-                        <div className="mt-4 text-xs text-gray-400">
+                        <div className="mt-4 text-xs text-gray-400 dark:text-gray-100">
                             {showFormattedDate(note.createdAt)}
                         </div>
                     </div>

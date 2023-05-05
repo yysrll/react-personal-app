@@ -5,10 +5,10 @@ function TextField({ className, label, type = "text", value, onChange, isRequire
   const [isFocused, setIsFocused] = React.useState(value !== "");
 
   return (
-    <div className="relative flex items-center justify-center w-full text-[#707EAE] mt-6">
+    <div className="relative flex items-center justify-center w-full text-[#707EAE] dark:text-white mt-6">
       <label
         className={`absolute left-0 ${
-          isFocused || value ? "text-xs text-gray-400 -top-2" : "text-base ms-3"
+          isFocused || value ? "text-xs text-gray-400 dark:text-white -top-2" : "text-base ms-3"
         } transform origin-top-left transition-all ${
           isFocused || value ? "-translate-y-2.5" : ""
         }`}
@@ -17,7 +17,7 @@ function TextField({ className, label, type = "text", value, onChange, isRequire
         {label}
       </label>
       <input
-        className={`w-full px-4 py-3 rounded-md border-gray-300 bg-[#F4F7FE] placeholder-gray-400 focus:outline-none focus:border-transparent  ${className}`}
+        className={`w-full px-4 py-3 rounded-md border-gray-300 dark:border-white bg-[#F4F7FE] dark:bg-transparent placeholder-gray-400 dark:placeholder-white focus:outline-none dark:focus:outline-1 dark:border focus:border-transparent dark:focus:border-white  ${className}`}
         type={type}
         id={label}
         value={value}

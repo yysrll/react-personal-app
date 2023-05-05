@@ -9,7 +9,7 @@ import parser from 'html-react-parser';
 function NoteItem({note, onArchive, onUnarchive, onDelete}) {
 
     return (
-        <div className="relative grid content-between p-4 bg-white text-gray-700 drop-shadow-sm rounded-md border border-gray-400">
+        <div className="relative grid content-between p-4 bg-white dark:bg-gray-600 text-gray-700 dark:text-white drop-shadow-sm rounded-md border border-gray-400">
             <div className="overflow-hidden">
                 <div className="flex justify-between items-start">
 
@@ -43,11 +43,11 @@ function NoteItem({note, onArchive, onUnarchive, onDelete}) {
                         />
                     </div>
                 </div>
-                <div className="truncate text-sm text-gray-500">
+                <div className="truncate text-sm text-gray-500 dark:text-gray-200">
                     {parser(note.body)}
                 </div>
             </div>
-            <div className="mt-4 text-xs text-gray-400">
+            <div className="mt-4 text-xs text-gray-400 dark:text-gray-300">
                 {showFormattedDate(note.createdAt)}
             </div>
         </div>
