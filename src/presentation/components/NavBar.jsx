@@ -3,6 +3,7 @@ import { FiX, FiFolder, FiHome, FiArchive, FiMenu, FiPlusCircle, FiUser } from "
 import { NavLink } from "react-router-dom";
 import PropTypes from 'prop-types';
 import UserContext from "../../contexts/UserContext";
+import { putAccessToken } from "../../utils/network-data";
 
 function NavBar({children}) {
     const {user, setUser} = useContext(UserContext)
@@ -77,7 +78,10 @@ function NavBar({children}) {
                                     {user.name}
                                     <div 
                                         className="ms-10"
-                                        onClick={() => setUser(null)}
+                                        onClick={() => {
+                                            setUser(null)
+                                            putAccessToken("")
+                                        }}
                                     >
                                         Logout
                                     </div>

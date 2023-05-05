@@ -13,6 +13,7 @@ function AddNotePage() {
     const [title, setTitle] = useState("")
     const [body, setBody] = useState("")
     const [loading, setLoading] = useState(false)
+    const [isError, setIsError] = useState(false)
 
     const onSubmitNote = (e) => {
         e.preventDefault()
@@ -24,13 +25,16 @@ function AddNotePage() {
                     navigate('/')
                     console.log(res.data)
                 } else {
+                    setIsError(true)
                     toast('Failed to create note')
                 }
             })
             .catch((error) => {
+                setIsError(true)
                 toast(`Failed: ${error}`)
             })
             .finally(() => {
+                setIsError(false)
                 setLoading(false)
             })
     }
@@ -70,7 +74,7 @@ function AddNotePage() {
             <Toaster 
                 toastOptions={{
                     style: {
-                        background: '#ef4444',
+                        background: isError ? '#ef4444' : '#22c55e',
                         color: '#fff',
                     },
                 }}

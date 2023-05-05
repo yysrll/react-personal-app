@@ -3,8 +3,10 @@ import { getUserLogged } from "./utils/network-data";
 import UserContext from "./contexts/UserContext";
 import Dashboard from "./presentation/pages/DashboardPage";
 import AuthRoutes from "./routes/routes";
+import LoadingPage from "./presentation/pages/LoadingPage";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true)
   const [user, setUser] = useState(null)  
 
   const userContextValue = useMemo(() => ({
@@ -14,6 +16,7 @@ function App() {
 
 
   useEffect(() => {
+    setIsLoading(true)
     getUserLogged()
       .then((res) => {
         if (!res.error) {
@@ -21,9 +24,11 @@ function App() {
         } else {
           setUser(null)
         }
+        setIsLoading(false)
       })
     .catch(() => {
-      // alert('Error')
+      setUser(null)
+      setIsLoading(false)
     })
   }, [])
 
@@ -31,6 +36,9 @@ function App() {
   return (
     <UserContext.Provider value={userContextValue}>
       {
+        isLoading ? (
+          <LoadingPage />
+        ) :
         user ? (
           <Dashboard />
         ) : (

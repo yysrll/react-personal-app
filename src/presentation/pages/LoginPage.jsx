@@ -30,6 +30,7 @@ function LoginPage() {
                     putAccessToken(res.data.accessToken)
                     getUserLogged()
                     .then((res) => {
+                        setIsError(res.error)
                         if (!res.error) {
                             setUser(res.data)
                             toast("Login success")
@@ -39,20 +40,22 @@ function LoginPage() {
                             toast("Login failed")
                         }
                     })
-                    .catch(() => {
-                        toast("Login failed")
+                    .catch((e) => {
+                        setIsError(true)
+                        toast(e)
                     })
                 } else {
                     toast("Login failed")
+                    putAccessToken("")
                 }
             })
             .catch((e) => {
                 setIsError(true)
                 toast(e.message)
+                putAccessToken("")
             })
             .finally(() => {
                 setLoading(false)
-                setIsError(false)
             })
     };
 
@@ -64,7 +67,7 @@ function LoginPage() {
             <div className="text-sm font-light text-secondary-gray">
                 Login to create your notes
             </div>
-            <form onSubmit={!loading && onLogin}>
+            <form onSubmit={onLogin}>
                 <TextField
                     label="Email"
                     type="email"
